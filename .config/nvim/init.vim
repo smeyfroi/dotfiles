@@ -2,19 +2,11 @@ if has('vim_starting')
   set nocompatible               " Be iMproved
 endif
 
-let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-
-if !filereadable(vimplug_exists)
-  if !executable("curl")
-    echoerr "You have to install curl or first install vim-plug yourself!"
-    execute "q!"
-  endif
-  echo "Installing Vim-Plug..."
-  echo ""
-  silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  let g:not_finish_vimplug = "yes"
-
-  autocmd VimEnter * PlugInstall
+" auto-install vim-plug
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 " Required:
@@ -44,12 +36,13 @@ Plug 'zirrostig/vim-schlepp'
 Plug 'moll/vim-bbye'
 Plug 'schickling/vim-bufonly'
 Plug 'mhinz/vim-hugefile'
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'gabesoft/vim-ags'
 Plug 'junegunn/vim-easy-align'
 Plug 'neovim/nvim-lspconfig'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-syntastic/syntastic'
+Plug 'preservim/tagbar'
 
 " Plug 'vim-scripts/YankRing.vim'
 " Plug 'derekwyatt/vim-fswitch'
@@ -138,7 +131,14 @@ vmap <C-D>    <Plug>SchleppDupDown
 " }}}
 
 " gutentags {{{
+if filereadable("/opt/homebrew/bin/ctags")
+  let g:gutentags_ctags_executable='/opt/homebrew/bin/ctags'
+endif
 let g:gutentags_ctags_exclude=["node_modules", "static"]
+" }}}
+
+" tagbar {{{
+map <leader>t :TagbarToggle<CR>
 " }}}
 
 " format JSON {{{
