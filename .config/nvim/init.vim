@@ -14,35 +14,63 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 
 Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'overcache/NeoSolarized'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'vim-airline/vim-airline'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-unimpaired'
+if has('nvim')
+  Plug 'nvim-lua/plenary.nvim' " lua utils for plugins
+  Plug 'lewis6991/gitsigns.nvim'
+  Plug 'phaazon/hop.nvim' " <leader>z (but see https://github.com/phaazon/hop.nvim)
+  Plug 'nvim-lualine/lualine.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+  Plug 'numToStr/Comment.nvim'
+  Plug 'karb94/neoscroll.nvim' " smooth scroll https://github.com/karb94/neoscroll.nvim
+  Plug 'tversteeg/registers.nvim' " show registers
+  Plug 'kassio/neoterm' " :Tnew
+else
+  Plug 'airblade/vim-gitgutter'
+  Plug 'vim-airline/vim-airline'
+  Plug 'preservim/nerdtree'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'tpope/vim-commentary'
+endif
+Plug 'bronson/vim-trailing-whitespace' " :FixWhitespace
+Plug 'tpope/vim-unimpaired' " https://github.com/tpope/vim-unimpaired
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'kana/vim-textobj-user'
-Plug 'rhysd/vim-textobj-ruby'
 Plug 'wellle/targets.vim'
-Plug 'AndrewRadev/switch.vim'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'AndrewRadev/sideways.vim'
-Plug 'lfv89/vim-interestingwords'
-Plug 'mechatroner/rainbow_csv'
-Plug 'zirrostig/vim-schlepp'
-Plug 'moll/vim-bbye'
-Plug 'schickling/vim-bufonly'
-Plug 'mhinz/vim-hugefile'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'AndrewRadev/switch.vim' " - https://github.com/AndrewRadev/switch.vim
+Plug 'AndrewRadev/splitjoin.vim' " gS gJ https://github.com/AndrewRadev/splitjoin.vim
+Plug 'AndrewRadev/sideways.vim' "  c-, c-. https://github.com/AndrewRadev/sideways.vim
+Plug 'lfv89/vim-interestingwords' " <leader>k <leader>K https://github.com/lfv89/vim-interestingwords
+Plug 'mechatroner/rainbow_csv' " :RainbowDelim with cursor on delim https://github.com/mechatroner/rainbow_csv
+Plug 'zirrostig/vim-schlepp' " vmap up, down, left, right and with Shift https://github.com/zirrostig/vim-schlepp
+Plug 'moll/vim-bbye' " Bdelete Bdeleteall https://github.com/moll/vim-bbye
+Plug 'schickling/vim-bufonly' " Bonly https://github.com/schickling/vim-bufonly
+Plug 'mhinz/vim-hugefile' " for files>2MB https://github.com/mhinz/vim-hugefile
 Plug 'gabesoft/vim-ags'
-Plug 'junegunn/vim-easy-align'
-Plug 'neovim/nvim-lspconfig'
-Plug 'sheerun/vim-polyglot'
-Plug 'vim-syntastic/syntastic'
-Plug 'preservim/tagbar'
+Plug 'junegunn/vim-easy-align' " ga https://github.com/junegunn/vim-easy-align
+if has('nvim')
+  Plug 'williamboman/nvim-lsp-installer' " Automate LSP server installation
+  Plug 'neovim/nvim-lspconfig' " Core LSP
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'rafamadriz/friendly-snippets'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " https://github.com/nvim-treesitter/nvim-treesitter
+  " Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+  " Plug 'ray-x/navigator.lua'
+  " Plug 'simrat39/symbols-outline.nvim'
+endif
+
+" Look at nvim-lint, but has no cfn plugin
+" Plug 'vim-syntastic/syntastic'
+" Plug 'speshak/vim-cfn'
+" Plug 'sheerun/vim-polyglot'
 
 " Plug 'vim-scripts/YankRing.vim'
 " Plug 'derekwyatt/vim-fswitch'
@@ -51,24 +79,24 @@ Plug 'preservim/tagbar'
 " Plug 'mileszs/ack.vim'
 " Plug 'tpope/vim-abolish'
 " Plug 'machakann/vim-swap'
-" Plug 'szw/vim-ctrlspace'
 " Plug 'mg979/vim-visual-multi'
 " Plug 'mbbill/undotree'
 " Plug 'henrik/vim-qargs'
-" Plug 'Lokaltog/vim-easymotion'
 
 call plug#end()
 
 set number
+autocmd TermOpen * setlocal nonumber norelativenumber
 
 set termguicolors
 set background=dark
 set cursorline
+set cursorcolumn
 colorscheme NeoSolarized
 
 set mouse=a
-
 set title
+set undofile
 
 " edit vimrc {{{
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -107,17 +135,20 @@ vmap < <gv
 set showmatch  " set show matching parenthesis
 set ignorecase " ignore case when searching
 set smartcase  " ignore case if search pattern is all lowercase, case-sensitive otherwise
-set hlsearch   " highlight search terms
-set incsearch  " show search matches as you type
 nmap <silent> <leader>/ :nohlsearch<CR>
 
-" NERDTree {{{
-map <leader>f :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" word wrap {{{
+lua vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+lua vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 " }}}
 
 " switch {{{
 nnoremap - :Switch<cr>
+" }}}
+
+" sideways {{{
+nnoremap <c-,> :SidewaysLeft<cr>
+nnoremap <c-.> :SidewaysRight<cr>
 " }}}
 
 " schlepp {{{
@@ -130,24 +161,17 @@ vmap <S-down> <Plug>SchleppIndentDown
 vmap <C-D>    <Plug>SchleppDupDown
 " }}}
 
-" gutentags {{{
-if filereadable("/opt/homebrew/bin/ctags")
-  let g:gutentags_ctags_executable='/opt/homebrew/bin/ctags'
-endif
-let g:gutentags_ctags_exclude=["node_modules", "static"]
-" }}}
-
-" tagbar {{{
-map <leader>t :TagbarToggle<CR>
-" }}}
-
 " format JSON {{{
 com! FormatJSON %!python -m json.tool
 " }}}
 
+" CHADTree {{{
+map <leader>f :CHADopen<CR>
+" }}}
+
 " NERDTree {{{
-map <leader>f :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" map <leader>f :NERDTreeToggle<CR>
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " }}}
 
 " bye bye buffer {{{
@@ -181,32 +205,152 @@ nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 " }}}
 
-" Open current line on GitHub
-nnoremap <Leader>g :.Gbrowse<CR>
-
 " highlight yank https://neovim.io/doc/user/lua.html#lua-highlight {{{
 if has('nvim')
-  au TextYankPost * silent! lua vim.highlight.on_yank()
+  au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
 endif
 " }}}
 
-" LSP {{{
-" https://github.com/bash-lsp/bash-language-server
-lua require'lspconfig'.bashls.setup{}
-" https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#solargraph
-lua require'lspconfig'.solargraph.setup{}
-" https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
-lua require'lspconfig'.tsserver.setup{}
+set completeopt=menu,menuone,noselect
+
+" nvim-treesitter {{{
+if has('nvim')
+lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    -- A list of parser names, or "all"
+    ensure_installed = { "bash", "lua", "cpp", "css", "dockerfile", "glsl", "html", "javascript", "json", "make", "python", "ruby", "tsx", "typescript", "vim", "yaml" },
+    highlight = { enable = true, },
+    indent = { enable = true },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "gnn",
+        scope_incremental = "grc",
+        node_decremental = "grm",
+        -- node_incremental = "grn",
+      },
+    },
+  }
+EOF
+endif
+" }}}
+
+" vim-cmp {{{
+lua <<EOF
+  -- Setup nvim-cmp. includes SuperTab from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings
+  local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  end
+  local feedkey = function(key, mode)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+  end
+
+  local cmp = require'cmp'
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      end,
+    },
+    window = {
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif vim.fn["vsnip#available"](1) == 1 then
+          feedkey("<Plug>(vsnip-expand-or-jump)", "")
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+        end
+      end, { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(function()
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+          feedkey("<Plug>(vsnip-jump-prev)", "")
+        end
+      end, { "i", "s" }),
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+    }, {
+      { name = 'buffer' },
+    })
+  })
+  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Setup lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  local servers = { 'pyright', 'tsserver', 'jsonls', 'solargraph', 'bashls', 'yamlls', 'vimls', 'cssls', 'dockerls', 'html', 'clangd', 'sumneko_lua', 'sqlls' }
+  require('nvim-lsp-installer').setup { ensure_installed = servers }
+  for _, server in pairs(servers) do
+    require('lspconfig')[server].setup { capabilities = capabilities }
+  end
+EOF
+
+lua <<EOF
+-- require'navigator'.setup()
+EOF
+
+" vim-vsnip {{{
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+" }}}
+
+" friendly-snippets {{{
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript']
+let g:vsnip_filetypes.ruby = ['rails']
 " }}}
 
 " Syntastic {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_cloudformation_checkers = ['cfn_lint']
+" let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 " }}}
 
 " {{{ ctrlspace
@@ -221,3 +365,66 @@ if has('nvim')
 endif
 " }}}
 
+" gitsigns {{{
+if has('nvim')
+  lua <<LUA
+  require('gitsigns').setup {
+    current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  }
+LUA
+endif
+" }}}
+
+" hop {{{
+if has('nvim')
+  lua require'hop'.setup()
+  nnoremap <leader>z <cmd>HopWord<cr>
+endif
+" }}}
+
+" Comment {{{
+if has('nvim')
+  lua require('Comment').setup()
+endif
+" }}}
+
+" symbols-outline {{{
+if has('nvim')
+lua <<LUA
+  vim.g.symbols_outline = {
+    highlight_hovered_item = true,
+    show_guides = true,
+    auto_preview = true,
+    position = 'right',
+    relative_width = true,
+    width = 25,
+    auto_close = false,
+    show_numbers = false,
+    show_relative_numbers = false,
+    show_symbol_details = true,
+  }
+LUA
+endif
+" }}}
+
+" neoscroll {{{
+if has('nvim')
+  lua require('neoscroll').setup()
+endif
+" }}}
+
+" neoterm {{{
+if has('nvim')
+  let g:neoterm_default_mod='botright'
+endif
+" }}}
+
+" lualine {{{
+if has('nvim')
+lua << END
+  require('lualine').setup()
+END
+endif
+" }}}
+
+set guifont=EssentialPragmataPro\ Nerd\ Font:h13
