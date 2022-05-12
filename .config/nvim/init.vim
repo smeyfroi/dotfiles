@@ -25,6 +25,10 @@ if has('nvim')
   Plug 'karb94/neoscroll.nvim' " smooth scroll https://github.com/karb94/neoscroll.nvim
   Plug 'tversteeg/registers.nvim' " show registers
   Plug 'kassio/neoterm' " :Tnew
+
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'AckslD/nvim-neoclip.lua'
 else
   Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
@@ -437,6 +441,24 @@ if has('nvim')
 lua << END
   require('lualine').setup()
 END
+endif
+" }}}
+
+" telescope {{{
+if has('nvim')
+lua << END
+  require('telescope').load_extension('fzf')
+  require('neoclip').setup()
+  require('telescope').load_extension('neoclip')
+END
+  nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+  nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+  nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+  nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+  nnoremap <leader>ft <cmd>lua require('telescope.builtin').treesitter()<cr>
+  nnoremap <leader>fs <cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>
+  " nnoremap <leader>fs <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>
+  nnoremap <leader>fy <cmd>Telescope neoclip<cr>
 endif
 " }}}
 
