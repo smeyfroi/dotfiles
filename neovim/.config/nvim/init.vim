@@ -1,7 +1,3 @@
-if has('vim_starting')
-  set nocompatible               " Be iMproved
-endif
-
 " auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -12,38 +8,29 @@ endif
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'overcache/NeoSolarized'
-if has('nvim')
-  Plug 'nvim-lua/plenary.nvim' " lua utils for plugins
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'phaazon/hop.nvim' " <leader>z (but see https://github.com/phaazon/hop.nvim)
-  Plug 'nvim-lualine/lualine.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
-  Plug 'numToStr/Comment.nvim'
-  Plug 'karb94/neoscroll.nvim' " smooth scroll https://github.com/karb94/neoscroll.nvim
-  Plug 'tversteeg/registers.nvim' " show registers
-  Plug 'kassio/neoterm' " :Tnew
-
-  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'AckslD/nvim-neoclip.lua'
-else
-  Plug 'airblade/vim-gitgutter'
-  Plug 'vim-airline/vim-airline'
-  Plug 'preservim/nerdtree'
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'tpope/vim-commentary'
-endif
+Plug 'nvim-lua/plenary.nvim' " lua utils for plugins
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'phaazon/hop.nvim' " <leader>z (but see https://github.com/phaazon/hop.nvim)
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plug 'numToStr/Comment.nvim'
+Plug 'karb94/neoscroll.nvim' " smooth scroll https://github.com/karb94/neoscroll.nvim
+Plug 'tversteeg/registers.nvim' " show registers
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'AckslD/nvim-neoclip.lua'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'akinsho/toggleterm.nvim', {'tag' : '2.3.0'}
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'bronson/vim-trailing-whitespace' " :FixWhitespace
 Plug 'tpope/vim-unimpaired' " https://github.com/tpope/vim-unimpaired
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'wellle/targets.vim'
-Plug 'AndrewRadev/switch.vim' " - https://github.com/AndrewRadev/switch.vim
+Plug 'AndrewRadev/switch.vim' " '-' https://github.com/AndrewRadev/switch.vim
 Plug 'AndrewRadev/splitjoin.vim' " gS gJ https://github.com/AndrewRadev/splitjoin.vim
 Plug 'AndrewRadev/sideways.vim' "  c-, c-. https://github.com/AndrewRadev/sideways.vim
 Plug 'lfv89/vim-interestingwords' " <leader>k <leader>K https://github.com/lfv89/vim-interestingwords
@@ -54,26 +41,20 @@ Plug 'schickling/vim-bufonly' " Bonly https://github.com/schickling/vim-bufonly
 Plug 'mhinz/vim-hugefile' " for files>2MB https://github.com/mhinz/vim-hugefile
 Plug 'gabesoft/vim-ags'
 Plug 'junegunn/vim-easy-align' " ga https://github.com/junegunn/vim-easy-align
-if has('nvim')
-  Plug 'williamboman/nvim-lsp-installer' " Automate LSP server installation
-  Plug 'neovim/nvim-lspconfig' " Core LSP https://github.com/neovim/nvim-lspconfig
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/cmp-vsnip'
-  Plug 'hrsh7th/vim-vsnip'
-  Plug 'rafamadriz/friendly-snippets'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " https://github.com/nvim-treesitter/nvim-treesitter
-endif
+Plug 'williamboman/nvim-lsp-installer' " Automate LSP server installation
+Plug 'neovim/nvim-lspconfig' " Core LSP https://github.com/neovim/nvim-lspconfig
+Plug 'jose-elias-alvarez/null-ls.nvim' " in-memory LSP for prettier
+" Plug 'MunifTanjim/prettier.nvim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " https://github.com/nvim-treesitter/nvim-treesitter
 
-" Look at nvim-lint, but has no cfn plugin
-" Plug 'vim-syntastic/syntastic'
-" Plug 'speshak/vim-cfn'
-" Plug 'sheerun/vim-polyglot'
-
-" Plug 'vim-scripts/YankRing.vim'
 " Plug 'derekwyatt/vim-fswitch'
 
 " Plug 'Valloric/MatchTagAlways'
@@ -83,6 +64,8 @@ endif
 " Plug 'mg979/vim-visual-multi'
 " Plug 'mbbill/undotree'
 " Plug 'henrik/vim-qargs'
+" Plug 'github/copilot.vim' " Github Copilot
+" Plug 'kassio/neoterm' " :Tnew, :Tclear
 
 call plug#end()
 
@@ -115,19 +98,21 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 " }}}
 
-" resize current buffer by +/- 5
-if has('nvim')
-  nnoremap <A-l> :vertical resize +5<CR>
-  nnoremap <A-h> :vertical resize -5<CR>
-  nnoremap <A-k> :resize -5<CR>
-  nnoremap <A-j> :resize +5<CR>
-endif
+" resize current buffer by +/- 5 {{{
+nnoremap <A-l> :vertical resize +5<CR>
+nnoremap <A-h> :vertical resize -5<CR>
+nnoremap <A-k> :resize -5<CR>
+nnoremap <A-j> :resize +5<CR>
+" }}}
 
 " tabs and indents {{{
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set shiftround  " use multiple of shiftwidth when indenting with '<' and '>'
 set copyindent  " copy the previous indentation on autoindenting
+" }}}
+
+" don't lose visual selection on indent in visual mode {{{
 vmap > >gv
 vmap < <gv
 " }}}
@@ -137,6 +122,7 @@ set showmatch  " set show matching parenthesis
 set ignorecase " ignore case when searching
 set smartcase  " ignore case if search pattern is all lowercase, case-sensitive otherwise
 nmap <silent> <leader>/ :nohlsearch<CR>
+" }}}
 
 " word wrap {{{
 lua vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
@@ -168,11 +154,6 @@ com! FormatJSON %!python -m json.tool
 
 " CHADTree {{{
 map <leader>f :CHADopen<CR>
-" }}}
-
-" NERDTree {{{
-" map <leader>f :NERDTreeToggle<CR>
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " }}}
 
 " bye bye buffer {{{
@@ -207,15 +188,12 @@ xmap ga <Plug>(EasyAlign)
 " }}}
 
 " highlight yank https://neovim.io/doc/user/lua.html#lua-highlight {{{
-if has('nvim')
-  au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
-endif
+au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
 " }}}
 
 set completeopt=menu,menuone,noselect
 
 " nvim-treesitter {{{
-if has('nvim')
 lua <<EOF
   require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all"
@@ -233,7 +211,10 @@ lua <<EOF
     },
   }
 EOF
-endif
+" folds
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+autocmd BufReadPost,FileReadPost * normal zR
 " }}}
 
 " vim-cmp {{{
@@ -248,6 +229,7 @@ lua <<EOF
   end
 
   local cmp = require'cmp'
+
   cmp.setup({
     snippet = {
       -- REQUIRED - you must specify a snippet engine
@@ -289,6 +271,7 @@ lua <<EOF
       { name = 'buffer' },
     })
   })
+
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
@@ -296,6 +279,7 @@ lua <<EOF
       { name = 'buffer' }
     }
   })
+
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
@@ -335,13 +319,13 @@ lua <<EOF
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opts)
   end
 
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  local servers = { 'pyright', 'tsserver', 'jsonls', 'solargraph', 'bashls', 'yamlls', 'vimls', 'cssls', 'dockerls', 'html', 'clangd', 'sumneko_lua', 'sqlls' }
+  local servers = { 'pyright', 'jsonls', 'solargraph', 'bashls', 'yamlls', 'vimls', 'cssls', 'dockerls', 'html', 'clangd', 'sumneko_lua', 'sqlls' }
   require('nvim-lsp-installer').setup { ensure_installed = servers }
   for _, server in pairs(servers) do
     require('lspconfig')[server].setup {
@@ -350,7 +334,33 @@ lua <<EOF
       capabilities = capabilities,
     }
   end
+  -- Disable tsserver formatting
+  require('lspconfig')['tsserver'].setup {
+    flags = { debounce_text_changes = 150 }, -- default for nvim 0.7+ ???
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+      on_attach(client, bufnr)
+    end
+  }
 EOF
+
+lua <<EOF
+local null_ls = require("null-ls")
+null_ls.setup({
+  sources = {
+--    null_ls.builtins.diagnostics.eslint,
+--    null_ls.builtins.code_actions.eslint,
+    null_ls.builtins.formatting.prettier
+  },
+  on_attach = on_attach
+})
+EOF
+
+" lua <<EOF
+" require("prettier").setup({})
+" EOF
 
 lua <<EOF
 -- require'navigator'.setup()
@@ -364,10 +374,10 @@ imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
 " See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
+" nmap        s   <Plug>(vsnip-select-text)
+" xmap        s   <Plug>(vsnip-select-text)
+" nmap        S   <Plug>(vsnip-cut-text)
+" xmap        S   <Plug>(vsnip-cut-text)
 " }}}
 
 " friendly-snippets {{{
@@ -389,77 +399,100 @@ let g:vsnip_filetypes.ruby = ['rails']
 " let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 " }}}
 
-" {{{ ctrlspace
-" https://github.com/vim-ctrlspace/vim-ctrlspace/issues/292
-let g:CtrlSpaceEnableFilesCache = 0
-" let g:CtrlSpaceIgnoredFiles = '\v(tmp|temp|ref|front_end|vendor|coverage|node_modules|bin)[\/]'
-if has('nvim')
-  let g:CtrlSpaceDefaultMappingKey = "<C-space> "
-  let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-  let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
-  let g:CtrlSpaceSaveWorkspaceOnExit = 1
-endif
-" }}}
-
 " gitsigns {{{
-if has('nvim')
 lua <<LUA
   require('gitsigns').setup {
     current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
   }
 LUA
-endif
 " }}}
 
 " hop {{{
-if has('nvim')
-  lua require'hop'.setup()
-  nnoremap <leader>z <cmd>HopWord<cr>
-endif
+lua require'hop'.setup()
+nnoremap <leader>z <cmd>HopWord<cr>
 " }}}
 
 " Comment {{{
-if has('nvim')
-  lua require('Comment').setup()
-endif
+lua require('Comment').setup()
 " }}}
 
 " neoscroll {{{
-if has('nvim')
-  lua require('neoscroll').setup()
-endif
+lua require('neoscroll').setup()
 " }}}
 
 " neoterm {{{
-if has('nvim')
-  let g:neoterm_default_mod='botright'
-endif
+let g:neoterm_default_mod='botright'
 " }}}
 
 " lualine {{{
-if has('nvim')
-lua << END
-  require('lualine').setup()
-END
-endif
+lua require('lualine').setup()
+" }}}
+
+" indent-blankline {{{
+lua require("indent_blankline").setup {}
+" }}}
+
+" registers {{{
+lua require("registers").setup({})
 " }}}
 
 " telescope {{{
-if has('nvim')
 lua << END
+  require('telescope').setup{
+    defaults = {
+      preview_cutoff = 60,
+      mappings = {
+        n = {
+          ['<c-d>'] = require('telescope.actions').delete_buffer
+        },
+        i = {
+          ['<c-/>'] = "which_key",
+          ['<c-d>'] = require('telescope.actions').delete_buffer
+        }
+      }
+    }
+  }
   require('telescope').load_extension('fzf')
   require('neoclip').setup()
   require('telescope').load_extension('neoclip')
+  require('telescope').load_extension('file_browser')
 END
-  nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-  nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-  nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-  nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-  nnoremap <leader>ft <cmd>lua require('telescope.builtin').treesitter()<cr>
-  nnoremap <leader>fs <cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>
-  " nnoremap <leader>fs <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>
-  nnoremap <leader>fy <cmd>Telescope neoclip<cr>
-endif
+nnoremap <C-space> <cmd>lua require('telescope.builtin').find_files()<cr>
+" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>ff <cmd>lua require('telescope').extensions.file_browser.file_browser()<cr>
+" nnoremap <leader>ff <cmd>lua require('telescope').extensions.file_browser.file_browser(require('telescope.themes').get_dropdown({}))<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>ft <cmd>lua require('telescope.builtin').treesitter()<cr>
+nnoremap <leader>fs <cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>
+" nnoremap <leader>fs <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>
+nnoremap <leader>fy <cmd>lua require('telescope').extensions.neoclip.default()<cr>
+nnoremap <leader>fm <cmd>lua require('telescope').extensions.macroscope.default()<cr>
+" }}}
+
+" toggleterm {{{
+lua << END
+require("toggleterm").setup{
+  -- size can be a number or function which is passed the current terminal
+  -- size = 20 | function(term)
+  --   if term.direction == "horizontal" then
+  --     return 15
+  --   elseif term.direction == "vertical" then
+  --     return vim.o.columns * 0.4
+  --   end
+  -- end,
+  open_mapping = [[<c-\>]],
+  insert_mappings = true, -- whether or not the open mapping applies in insert mode
+  terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
+  direction = 'float',
+  close_on_exit = true, -- close the terminal window when the process exits
+  -- float_opts = {
+  --   width = <value>,
+  --   height = <value>,
+  -- }
+}
+END
 " }}}
 
 set guifont=EssentialPragmataPro\ Nerd\ Font:h13
