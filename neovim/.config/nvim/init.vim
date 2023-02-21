@@ -25,7 +25,7 @@ Plug 'AckslD/nvim-neoclip.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '2.3.0'}
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'bronson/vim-trailing-whitespace' " :FixWhitespace
+" Plug 'bronson/vim-trailing-whitespace' " :FixWhitespace
 Plug 'tpope/vim-unimpaired' " https://github.com/tpope/vim-unimpaired
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -41,7 +41,8 @@ Plug 'schickling/vim-bufonly' " Bonly https://github.com/schickling/vim-bufonly
 Plug 'mhinz/vim-hugefile' " for files>2MB https://github.com/mhinz/vim-hugefile
 Plug 'gabesoft/vim-ags'
 Plug 'junegunn/vim-easy-align' " ga https://github.com/junegunn/vim-easy-align
-Plug 'williamboman/nvim-lsp-installer' " Automate LSP server installation
+Plug 'williamboman/mason.nvim' " https://github.com/williamboman/mason.nvim
+Plug 'williamboman/mason-lspconfig.nvim' " https://github.com/williamboman/mason-lspconfig.nvim
 Plug 'neovim/nvim-lspconfig' " Core LSP https://github.com/neovim/nvim-lspconfig
 Plug 'jose-elias-alvarez/null-ls.nvim' " in-memory LSP for prettier
 " Plug 'MunifTanjim/prettier.nvim'
@@ -54,15 +55,11 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " https://github.com/nvim-treesitter/nvim-treesitter
+" Plug 'folke/trouble.nvim' # list of LSP diagnostics, references etc
 
-" Plug 'derekwyatt/vim-fswitch'
-
-" Plug 'Valloric/MatchTagAlways'
-" Plug 'mileszs/ack.vim'
 " Plug 'tpope/vim-abolish'
 " Plug 'machakann/vim-swap'
 " Plug 'mg979/vim-visual-multi'
-" Plug 'mbbill/undotree'
 " Plug 'henrik/vim-qargs'
 " Plug 'github/copilot.vim' " Github Copilot
 " Plug 'kassio/neoterm' " :Tnew, :Tclear
@@ -146,10 +143,6 @@ vmap <right>  <Plug>SchleppRight
 vmap <S-up>   <Plug>SchleppIndentUp
 vmap <S-down> <Plug>SchleppIndentDown
 vmap <C-D>    <Plug>SchleppDupDown
-" }}}
-
-" format JSON {{{
-com! FormatJSON %!python -m json.tool
 " }}}
 
 " CHADTree {{{
@@ -289,8 +282,15 @@ lua <<EOF
       { name = 'cmdline' }
     })
   })
+EOF
 
+" LSP {{{
+lua <<EOF
   -- Setup lsp and lspconfig
+  require("mason").setup()
+  require("mason-lspconfig").setup {
+    automatic_installation = true,
+  }
   -- Mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   local opts = { noremap=true, silent=true }
@@ -311,32 +311,35 @@ lua <<EOF
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opts)
+    -- gl: Show diagnostics in a floating window. See :help vim.diagnostic.open_float().
+    -- [d: Move to the previous diagnostic in the current buffer. See :help vim.diagnostic.goto_prev().
+    -- ]d: Move to the next diagnostic. See :help vim.diagnostic.goto_next().
   end
 
+  -- <<< This section could be done using VonHeikemen/lsp-zero.nvim
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
+
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  local servers = { 'pyright', 'jsonls', 'solargraph', 'bashls', 'yamlls', 'vimls', 'cssls', 'dockerls', 'html', 'clangd', 'sumneko_lua', 'sqlls' }
-  require('nvim-lsp-installer').setup { ensure_installed = servers }
+  local servers = { 'bashls', 'clangd', 'cssls', 'dockerls', 'html', 'jsonls', 'lua_ls', 'pyright', 'solargraph', 'sqlls', 'vimls', 'yamlls' }
   for _, server in pairs(servers) do
     require('lspconfig')[server].setup {
       on_attach = on_attach,
-      flags = { debounce_text_changes = 150 }, -- default for nvim 0.7+ ???
       capabilities = capabilities,
     }
   end
+
   -- Disable tsserver formatting
   require('lspconfig')['tsserver'].setup {
-    flags = { debounce_text_changes = 150 }, -- default for nvim 0.7+ ???
     capabilities = capabilities,
     on_attach = function(client, bufnr)
       client.resolved_capabilities.document_formatting = false
@@ -344,27 +347,30 @@ lua <<EOF
       on_attach(client, bufnr)
     end
   }
+  -- >>> This section could be done using VonHeikemen/lsp-zero.nvim
 EOF
 
-lua <<EOF
-local null_ls = require("null-ls")
-null_ls.setup({
-  sources = {
---    null_ls.builtins.diagnostics.eslint,
---    null_ls.builtins.code_actions.eslint,
-    null_ls.builtins.formatting.prettier
-  },
-  on_attach = on_attach
-})
-EOF
+" lua <<EOF
+" local null_ls = require("null-ls")
+" null_ls.setup({
+"   sources = {
+" --    null_ls.builtins.diagnostics.eslint,
+" --    null_ls.builtins.code_actions.eslint,
+"     null_ls.builtins.formatting.prettier,
+"     null_ls.builtins.diagnostics.cfn_lint,
+"     null_ls.builtins.diagnostics.cppcheck,
+"   },
+"   on_attach = on_attach
+" })
+" EOF
 
 " lua <<EOF
 " require("prettier").setup({})
 " EOF
 
-lua <<EOF
--- require'navigator'.setup()
-EOF
+" format JSON {{{
+com! FormatJSON %!python -m json.tool
+" }}}
 
 " vim-vsnip {{{
 " Jump forward or backward
@@ -387,17 +393,6 @@ let g:vsnip_filetypes.typescriptreact = ['typescript']
 let g:vsnip_filetypes.ruby = ['rails']
 " }}}
 
-" Syntastic {{{
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_cloudformation_checkers = ['cfn_lint']
-" let g:syntastic_ruby_checkers = ['rubocop', 'mri']
-" }}}
 
 " gitsigns {{{
 lua <<LUA
