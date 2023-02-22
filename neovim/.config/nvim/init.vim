@@ -8,7 +8,7 @@ endif
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-Plug 'overcache/NeoSolarized'
+Plug 'ishan9299/nvim-solarized-lua'
 Plug 'nvim-lua/plenary.nvim' " lua utils for plugins
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'phaazon/hop.nvim' " <leader>z (but see https://github.com/phaazon/hop.nvim)
@@ -47,7 +47,6 @@ Plug 'williamboman/mason.nvim' " https://github.com/williamboman/mason.nvim
 Plug 'williamboman/mason-lspconfig.nvim' " https://github.com/williamboman/mason-lspconfig.nvim
 Plug 'jose-elias-alvarez/null-ls.nvim' " in-memory LSP for standalone language servers
 Plug 'jay-babu/mason-null-ls.nvim' " null-ls server management
-" Plug 'MunifTanjim/prettier.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -59,13 +58,12 @@ Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " https://github.com/nvim-treesitter/nvim-treesitter
-" Plug 'folke/trouble.nvim' # list of LSP diagnostics, references etc
+Plug 'mrjones2014/nvim-ts-rainbow'
 
 " Plug 'tpope/vim-abolish'
 " Plug 'machakann/vim-swap'
 " Plug 'mg979/vim-visual-multi'
 " Plug 'henrik/vim-qargs'
-" Plug 'github/copilot.vim' " Github Copilot
 " Plug 'kassio/neoterm' " :Tnew, :Tclear
 
 call plug#end()
@@ -77,7 +75,7 @@ set termguicolors
 set background=dark
 set cursorline
 set cursorcolumn
-colorscheme NeoSolarized
+colorscheme solarized
 
 set mouse=a
 set title
@@ -206,15 +204,23 @@ lua <<EOF
         -- node_incremental = "grn",
       },
     },
+    rainbow = {
+      enable = true,
+      -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+      extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+      max_file_lines = nil, -- Do not enable for files with more than n lines, int
+      -- colors = {}, -- table of hex strings
+      -- termcolors = {} -- table of colour name strings
+    },
   }
 EOF
 " folds
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-autocmd BufReadPost,FileReadPost * normal zR
+set foldmethod=manual " or expr to use TS
+" set foldexpr=nvim_treesitter#foldexpr()
+" autocmd BufReadPost,FileReadPost * normal zR
 " }}}
 
-" completion
+" completion {{{
 lua <<EOF
   local cmp = require'cmp'
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -235,6 +241,7 @@ lua <<EOF
     })
   })
 EOF
+" }}}
 
 " LSP {{{
 lua <<EOF
@@ -284,14 +291,6 @@ lua <<EOF
   null_ls.setup({ sources = sources })
   require("mason-null-ls").setup()
 EOF
-
-" lua <<EOF
-" require("prettier").setup({})
-" EOF
-
-" format JSON {{{
-com! FormatJSON %!python -m json.tool
-" }}}
 
 " vim-vsnip {{{
 " Jump forward or backward
