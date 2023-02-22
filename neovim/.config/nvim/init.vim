@@ -41,19 +41,22 @@ Plug 'schickling/vim-bufonly' " Bonly https://github.com/schickling/vim-bufonly
 Plug 'mhinz/vim-hugefile' " for files>2MB https://github.com/mhinz/vim-hugefile
 Plug 'gabesoft/vim-ags'
 Plug 'junegunn/vim-easy-align' " ga https://github.com/junegunn/vim-easy-align
+Plug 'VonHeikemen/lsp-zero.nvim'
+Plug 'neovim/nvim-lspconfig' " Core LSP https://github.com/neovim/nvim-lspconfig
 Plug 'williamboman/mason.nvim' " https://github.com/williamboman/mason.nvim
 Plug 'williamboman/mason-lspconfig.nvim' " https://github.com/williamboman/mason-lspconfig.nvim
-Plug 'neovim/nvim-lspconfig' " Core LSP https://github.com/neovim/nvim-lspconfig
-Plug 'jose-elias-alvarez/null-ls.nvim' " in-memory LSP for prettier
+" Plug 'jose-elias-alvarez/null-ls.nvim' " in-memory LSP for prettier
 " Plug 'MunifTanjim/prettier.nvim'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'rafamadriz/friendly-snippets'
+Plug 'L3MON4D3/LuaSnip'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " https://github.com/nvim-treesitter/nvim-treesitter
 " Plug 'folke/trouble.nvim' # list of LSP diagnostics, references etc
 
@@ -211,60 +214,63 @@ autocmd BufReadPost,FileReadPost * normal zR
 " }}}
 
 " vim-cmp {{{
+"lua <<EOF
+"  -- Setup nvim-cmp. includes SuperTab from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings
+"  local has_words_before = function()
+"    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+"    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+"  end
+"  local feedkey = function(key, mode)
+"    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+"  end
+"
+"  local cmp = require'cmp'
+"
+"  cmp.setup({
+"    snippet = {
+"      -- REQUIRED - you must specify a snippet engine
+"      expand = function(args)
+"        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+"      end,
+"    },
+"    window = {
+"    },
+"    mapping = cmp.mapping.preset.insert({
+"      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+"      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+"      ['<C-Space>'] = cmp.mapping.complete(),
+"      ['<C-e>'] = cmp.mapping.abort(),
+"      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+"      ["<Tab>"] = cmp.mapping(function(fallback)
+"        if cmp.visible() then
+"          cmp.select_next_item()
+"        elseif vim.fn["vsnip#available"](1) == 1 then
+"          feedkey("<Plug>(vsnip-expand-or-jump)", "")
+"        elseif has_words_before() then
+"          cmp.complete()
+"        else
+"          fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+"        end
+"      end, { "i", "s" }),
+"      ["<S-Tab>"] = cmp.mapping(function()
+"        if cmp.visible() then
+"          cmp.select_prev_item()
+"        elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+"          feedkey("<Plug>(vsnip-jump-prev)", "")
+"        end
+"      end, { "i", "s" }),
+"    }),
+"    sources = cmp.config.sources({
+"      { name = 'nvim_lsp' },
+"      { name = 'vsnip' },
+"    }, {
+"      { name = 'buffer' },
+"    })
+"  })
+
+" completion
 lua <<EOF
-  -- Setup nvim-cmp. includes SuperTab from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings
-  local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-  end
-  local feedkey = function(key, mode)
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-  end
-
   local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      end,
-    },
-    window = {
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif vim.fn["vsnip#available"](1) == 1 then
-          feedkey("<Plug>(vsnip-expand-or-jump)", "")
-        elseif has_words_before() then
-          cmp.complete()
-        else
-          fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function()
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-          feedkey("<Plug>(vsnip-jump-prev)", "")
-        end
-      end, { "i", "s" }),
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' },
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
@@ -286,83 +292,19 @@ EOF
 
 " LSP {{{
 lua <<EOF
-  -- Setup lsp and lspconfig
-  require("mason").setup()
-  require("mason-lspconfig").setup {
-    automatic_installation = true,
-  }
-  -- Mappings.
-  -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-  local opts = { noremap=true, silent=true }
-  vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-
-  -- Use an on_attach function to only map the following keys
-  -- after the language server attaches to the current buffer
-  local on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opts)
-    -- gl: Show diagnostics in a floating window. See :help vim.diagnostic.open_float().
-    -- [d: Move to the previous diagnostic in the current buffer. See :help vim.diagnostic.goto_prev().
-    -- ]d: Move to the next diagnostic. See :help vim.diagnostic.goto_next().
-  end
-
-  -- <<< This section could be done using VonHeikemen/lsp-zero.nvim
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  local servers = { 'bashls', 'clangd', 'cssls', 'dockerls', 'html', 'jsonls', 'lua_ls', 'pyright', 'solargraph', 'sqlls', 'vimls', 'yamlls' }
-  for _, server in pairs(servers) do
-    require('lspconfig')[server].setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    }
-  end
-
-  -- Disable tsserver formatting
-  require('lspconfig')['tsserver'].setup {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
-      on_attach(client, bufnr)
-    end
-  }
-  -- >>> This section could be done using VonHeikemen/lsp-zero.nvim
+  local lsp = require('lsp-zero').preset({
+    name = 'minimal',
+    set_lsp_keymaps = true,
+    manage_nvim_cmp = true,
+    suggest_lsp_servers = false,
+  })
+  lsp.on_attach(function(client, bufnr)
+    local opts = {buffer = bufnr}
+    local bind = vim.keymap.set
+    bind('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+  end)
+  lsp.setup()
 EOF
-
-" lua <<EOF
-" local null_ls = require("null-ls")
-" null_ls.setup({
-"   sources = {
-" --    null_ls.builtins.diagnostics.eslint,
-" --    null_ls.builtins.code_actions.eslint,
-"     null_ls.builtins.formatting.prettier,
-"     null_ls.builtins.diagnostics.cfn_lint,
-"     null_ls.builtins.diagnostics.cppcheck,
-"   },
-"   on_attach = on_attach
-" })
-" EOF
 
 " lua <<EOF
 " require("prettier").setup({})
