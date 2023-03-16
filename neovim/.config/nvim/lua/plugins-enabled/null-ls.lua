@@ -46,7 +46,6 @@ function Plugin.config()
       diagnostics.hadolint,
       diagnostics.markdownlint,
       diagnostics.rubocop,
-      diagnostics.yamllint,
       formatting.jq,
       formatting.mdformat,
       formatting.rubocop,

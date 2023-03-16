@@ -6,6 +6,12 @@ autocmd('TermOpen', {
   command = 'setlocal nonumber norelativenumber'
 })
 
+vim.cmd([[autocmd BufNewFile,BufRead *.template :setlocal filetype=yaml]])
+-- autocmd('BufNewFile,BufRead', {
+--   pattern = '*.template',
+--   command = 'setlocal filetype=yaml'
+-- })
+
 command(
   'StripTrailingWhitespace',
   function()
