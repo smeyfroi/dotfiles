@@ -6,6 +6,7 @@ Plugin.dependencies = {
   {'williamboman/mason-lspconfig.nvim'},
   {'hrsh7th/cmp-nvim-lsp'},
   {'VonHeikemen/lsp-zero.nvim'},
+  {'folke/neodev.nvim'},
 }
 
 function Plugin.config()
