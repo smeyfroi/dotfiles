@@ -5,10 +5,6 @@ local remap = {remap = true}
 -- Clear search highlights
 bind('n', '<Leader>/', ':nohlsearch<CR>')
 
--- Edit and source vimrc
-bind('n', '<leader>ev', ':e $MYVIMRC<CR>')
-bind('n', '<leader>sv', ':so $MYVIMRC<CR>')
-
 -- Copy to system clipboard in visual mode with Ctrl-C
 bind('v', '<C-c>', '"+y')
 

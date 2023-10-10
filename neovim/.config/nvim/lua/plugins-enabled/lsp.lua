@@ -1,7 +1,7 @@
 local Plugin = {'neovim/nvim-lspconfig'}
 
 Plugin.dependencies = {
-  {'j-hui/fidget.nvim'},
+  -- {'j-hui/fidget.nvim'},
   {'williamboman/mason.nvim'},
   {'williamboman/mason-lspconfig.nvim'},
   {'hrsh7th/cmp-nvim-lsp'},
@@ -10,17 +10,17 @@ Plugin.dependencies = {
 }
 
 function Plugin.config()
-  require('fidget').setup({
-    text = {
-      spinner = 'moon'
-    },
-    window = {
-      blend = 0
-    },
-    sources = {
-      ['null-ls'] = {ignore = true}
-    }
-  })
+  -- require('fidget').setup({
+  --   text = {
+  --     spinner = 'moon'
+  --   },
+  --   window = {
+  --     blend = 0
+  --   },
+  --   sources = {
+  --     ['null-ls'] = {ignore = true}
+  --   }
+  -- })
   local lsp = require('lsp-zero').preset({
     name = 'minimal',
     set_lsp_keymaps = true,
