@@ -36,7 +36,6 @@
   "surround": { "branch": "main", "commit": "68ce058ef9716d7d955b79363845d2dd003d6500" },
   "switch": { "branch": "main", "commit": "68d269301181835788dcdcb6d5bca337fb954395" },
   "targets": { "branch": "master", "commit": "642d3a4ce306264b05ea3219920b13ea80931767" },
-  "telescope-file-browser.nvim": { "branch": "master", "commit": "6e51d0cd6447cf2525412220ff0a2885eef9039c" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "6c921ca12321edaa773e324ef64ea301a1d0da62" },
   "telescope.nvim": { "branch": "master", "commit": "54930e1abfc94409e1bb9266e752ef8379008592" },
   "toggleterm": { "branch": "main", "commit": "c80844fd52ba76f48fabf83e2b9f9b93273f418d" },
