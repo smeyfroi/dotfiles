@@ -1,4 +1,4 @@
-vim.opt.background = 'dark'
+-- vim.opt.background = 'dark'
 
 -- Show matching parentheses
 vim.opt.showmatch = true
@@ -20,7 +20,7 @@ vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
 
 -- Enable mouse support
-vim.opt.mouse = 'a'
+-- vim.opt.mouse = 'a'
 
 -- Set window title
 vim.opt.title = true
@@ -39,29 +39,30 @@ vim.opt.copyindent = true
 vim.cmd('set list')
 vim.cmd([[set listchars=tab:▷\ ,trail:·,extends:◣,precedes:◢,nbsp:○]])
 
+---- Set by mini.completion
 -- Insert mode completion setting
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+-- vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 vim.opt.guifont = "EssentialPragmataPro Nerd Font:h14"
 
 -- Always display signcolumn (for diagnostic related stuff)
 vim.opt.signcolumn = 'yes'
 
-vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
-  update_in_insert = false,
-  underline = true,
-  severity_sort = true,
-  float = {
-    focusable = false,
-    style = 'minimal',
-    border = 'rounded',
-    source = 'always',
-    header = '',
-    prefix = '',
-  }
-})
+-- vim.diagnostic.config({
+--   virtual_text = false,
+--   signs = true,
+--   update_in_insert = false,
+--   underline = true,
+--   severity_sort = true,
+--   float = {
+--     focusable = false,
+--     style = 'minimal',
+--     border = 'rounded',
+--     source = 'always',
+--     header = '',
+--     prefix = '',
+--   }
+-- })
 
 -- highlight yank https://neovim.io/doc/user/lua.html#lua-highlight {{{
 vim.cmd([[au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}]])

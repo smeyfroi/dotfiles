@@ -15,10 +15,10 @@ bind('n', '<C-k>', '<C-w>k')
 bind('n', '<C-l>', '<C-w>l')
 
 --- Window resize
-bind('n', '<A-l>', ':vertical resize +5<CR>')
-bind('n', '<A-h>', ':vertical resize -5<CR>')
-bind('n', '<A-k>', ':resize -5<CR>')
-bind('n', '<A-j>', ':resize +5<CR>')
+-- bind('n', '<M-l>', ':vertical resize +5<CR>')
+-- bind('n', '<M-h>', ':vertical resize -5<CR>')
+-- bind('n', '<M-k>', ':resize -5<CR>')
+-- bind('n', '<M-j>', ':resize +5<CR>')
 
 --- Maintain visual selection on indent in visual mode
 bind('v', '>', '>gv')
