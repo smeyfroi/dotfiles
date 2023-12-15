@@ -1,7 +1,5 @@
 local Plugin = {'akinsho/toggleterm.nvim'}
 
-Plugin.name = 'toggleterm'
-
 Plugin.opts = {
   open_mapping = [[<c-\>]],
   insert_mappings = true, -- whether or not the open mapping applies in insert mode
