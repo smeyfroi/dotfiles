@@ -7,6 +7,7 @@ autocmd('TermOpen', {
 })
 
 vim.cmd([[autocmd BufNewFile,BufRead *.template :setlocal filetype=yaml]])
+-- vim.cmd([[autocmd BufNewFile,BufRead *.template :setlocal filetype=cfn]])
 -- autocmd('BufNewFile,BufRead', {
 --   pattern = '*.template',
 --   command = 'setlocal filetype=yaml'

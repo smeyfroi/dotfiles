@@ -43,7 +43,7 @@ vim.cmd([[set listchars=tab:▷\ ,trail:·,extends:◣,precedes:◢,nbsp:○]])
 -- Insert mode completion setting
 -- vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
-vim.opt.guifont = "EssentialPragmataPro Nerd Font:h14"
+vim.opt.guifont = "Iosevka Nerd Font Mono:h14"
 
 -- Always display signcolumn (for diagnostic related stuff)
 vim.opt.signcolumn = 'yes'
