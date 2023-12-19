@@ -9,7 +9,7 @@ function Plugin.config()
     ensure_installed = {
       "bashls",
       -- "cfn-lint",
-      "dockerls",
+      -- "dockerls",
       "jsonls",
       "lua_ls",
       -- "markdownlint",
