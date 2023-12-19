@@ -4,7 +4,7 @@ Plugin.dependencies = {
   { "williamboman/mason.nvim" },
 }
 
-function Plugin.config()
+Plugin.config = function()
   require("mason-lspconfig").setup({
     ensure_installed = {
       "bashls",
