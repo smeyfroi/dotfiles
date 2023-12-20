@@ -3,6 +3,7 @@ local Plugin = { "neovim/nvim-lspconfig" }
 Plugin.dependencies = {
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
+  { "j-hui/fidget.nvim" },
 }
 
 Plugin.config = function()
@@ -12,7 +13,38 @@ Plugin.config = function()
   lspconfig.lua_ls.setup({})
   lspconfig.solargraph.setup({})
   lspconfig.tsserver.setup({})
-  lspconfig.yamlls.setup({})
+  lspconfig.yamlls.setup({
+    settings = {
+      yaml = {
+        format = {
+          enable = false,
+        },
+        hover = true,
+        completion = true,
+        customTags = {
+          "!fn",
+          "!And",
+          "!If",
+          "!Not",
+          "!Equals",
+          "!Or",
+          "!FindInMap Sequence",
+          "!Base64",
+          "!Cidr",
+          "!Ref",
+          "!Ref Scalar",
+          "!Sub",
+          "!Sub Sequence",
+          "!GetAtt",
+          "!GetAZs",
+          "!ImportValue",
+          "!Select",
+          "!Split",
+          "!Join Sequence",
+        },
+      },
+    },
+  })
 
   local bind = vim.keymap.set
   bind("n", "<space>e", vim.diagnostic.open_float)
