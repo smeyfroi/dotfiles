@@ -11,7 +11,7 @@ Plugin.config = function()
       -- "cfn-lint",
       -- "dockerls",
       "jsonls",
-      "lua_ls",
+      -- "lua_ls",
       -- "markdownlint",
       -- "prettier",
       -- "pylint",
