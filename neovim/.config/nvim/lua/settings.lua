@@ -1,73 +1,88 @@
--- vim.opt.background = 'dark'
+-- See https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 
--- Show matching parentheses
-vim.opt.showmatch = true
+-- Set filetype to `bigfile` for files larger than 1.5 MB
+-- Only vim syntax will be enabled (with the correct filetype)
+-- LSP, treesitter and other ft plugins will be disabled.
+-- mini.animate will also be disabled.
+vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
 
--- Ignore case when searching
-vim.opt.ignorecase = true
--- Ignore case if search pattern is all lowercase, case-sensitive otherwise
-vim.opt.smartcase = true
+local opt = vim.opt
 
--- Show line numbers
-vim.opt.number = true
-
--- Use the pretty colors
-vim.opt.termguicolors = true
-
--- Show cursor line
-vim.opt.cursorline = true
--- Show cursor column
-vim.opt.cursorcolumn = true
-
--- Enable mouse support
--- vim.opt.mouse = 'a'
-
--- Set window title
-vim.opt.title = true
-
--- Save undo history
-vim.opt.undofile = true
-
--- Setup tab width
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftround = true
-vim.opt.copyindent = true
-
-vim.cmd('set list')
+opt.autowrite = true -- Enable auto write
+-- only set clipboard if not in ssh, to make sure the OSC 52
+-- integration works automatically. Requires Neovim >= 0.10.0
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+-- opt.completeopt = "menu,menuone,noselect" ---- Set by mini.completion
+opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
+opt.cursorcolumn = true
+opt.cursorline = true -- Enable highlighting of the current line
+opt.expandtab = true -- Use spaces instead of tabs
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+opt.foldlevel = 99
+-- opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
+opt.formatoptions = "jcroqlnt" -- tcqj
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.ignorecase = true -- Ignore case
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.jumpoptions = "view"
+opt.laststatus = 3 -- global statusline
+opt.linebreak = true -- Wrap lines at convenient points
+opt.list = true -- Show some invisible characters (tabs...
 vim.cmd([[set listchars=tab:▷\ ,trail:·,extends:◣,precedes:◢,nbsp:○]])
+opt.mouse = "a" -- Enable mouse mode
+opt.number = true -- Print line number
+opt.pumblend = 10 -- Popup blend
+opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.relativenumber = false -- Relative line numbers
+opt.scrolloff = 4 -- Lines of context
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.shiftround = true -- Round indent
+opt.shiftwidth = 2 -- Size of an indent
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.showmode = false -- Dont show mode since we have a statusline
+opt.sidescrolloff = 8 -- Columns of context
+opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartcase = true -- Don't ignore case with capitals
+opt.smartindent = true -- Insert indents automatically
+opt.spelllang = { "en" }
+opt.spelloptions:append("noplainbuffer")
+opt.splitbelow = true -- Put new windows below current
+opt.splitkeep = "screen"
+opt.splitright = true -- Put new windows right of current
+-- opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
+opt.tabstop = 2 -- Number of spaces tabs count for
+opt.termguicolors = true -- True color support
+opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
+opt.undofile = true
+opt.undolevels = 10000
+opt.updatetime = 200 -- Save swap file and trigger CursorHold
+opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
+opt.wildmode = "longest:full,full" -- Command-line completion mode
+opt.winminwidth = 5 -- Minimum window width
+opt.wrap = false -- Disable line wrap
 
----- Set by mini.completion
--- Insert mode completion setting
--- vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+if vim.fn.has("nvim-0.10") == 1 then
+  opt.smoothscroll = true
+  -- opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+  opt.foldmethod = "expr"
+  opt.foldtext = ""
+else
+  opt.foldmethod = "indent"
+  -- opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
+end
 
-vim.opt.guifont = "Iosevka Nerd Font Mono:h14"
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
 
--- Always display signcolumn (for diagnostic related stuff)
-vim.opt.signcolumn = 'yes'
 
--- vim.diagnostic.config({
---   virtual_text = false,
---   signs = true,
---   update_in_insert = false,
---   underline = true,
---   severity_sort = true,
---   float = {
---     focusable = false,
---     style = 'minimal',
---     border = 'rounded',
---     source = 'always',
---     header = '',
---     prefix = '',
---   }
--- })
 
--- highlight yank https://neovim.io/doc/user/lua.html#lua-highlight {{{
-vim.cmd([[au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}]])
-
--- folds
--- set foldmethod=manual " or expr to use TS
--- " set foldexpr=nvim_treesitter#foldexpr()
--- " autocmd BufReadPost,FileReadPost * normal zR
+opt.guifont = "Iosevka Nerd Font Mono:h14"

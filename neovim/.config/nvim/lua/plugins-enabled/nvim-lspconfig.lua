@@ -22,7 +22,7 @@ Plugin.config = function()
         hover = true,
         completion = true,
         customTags = {
-          "!fn",
+          "!Fn",
           "!And",
           "!If",
           "!Not",
@@ -50,7 +50,7 @@ Plugin.config = function()
   bind("n", "<space>e", vim.diagnostic.open_float)
   bind("n", "[d", vim.diagnostic.goto_prev)
   bind("n", "]d", vim.diagnostic.goto_next)
-  bind("n", "<space>q", vim.diagnostic.setloclist)
+  -- bind("n", "<space>q", vim.diagnostic.setloclist)
 
   -- Use LspAttach autocommand to only map the following keys
   -- after the language server attaches to the current buffer

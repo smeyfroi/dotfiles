@@ -1,5 +1,6 @@
-local Plugin = {'tummetott/unimpaired.nvim'}
-
-Plugin.config = true
+local Plugin = {
+  "tummetott/unimpaired.nvim",
+  config = true,
+}
 
 return Plugin

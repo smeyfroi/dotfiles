@@ -1,5 +1,6 @@
-local Plugin = {'williamboman/mason.nvim'}
-
-Plugin.config = true
+local Plugin = {
+  "williamboman/mason.nvim",
+  config = true,
+}
 
 return Plugin

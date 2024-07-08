@@ -1,5 +1,7 @@
-local Plugin = {"j-hui/fidget.nvim"}
-
-Plugin.config = true
+local Plugin = {
+  "j-hui/fidget.nvim",
+  opts = {
+  },
+}
 
 return Plugin

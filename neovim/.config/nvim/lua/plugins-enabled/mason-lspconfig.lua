@@ -16,7 +16,6 @@ Plugin.config = function()
       -- "prettier",
       -- "pylint",
       "rubocop",
-      "solargraph",
       "tsserver",
       "yamlls",
     },

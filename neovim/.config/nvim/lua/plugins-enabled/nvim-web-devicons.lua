@@ -1,3 +1,3 @@
-local Plugin = {'nvim-tree/nvim-web-devicons'}
+local Plugin = {"nvim-tree/nvim-web-devicons"}
 
 return Plugin

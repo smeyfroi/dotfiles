@@ -1,7 +1,6 @@
-local Plugin = {'echasnovski/mini.ai'}
-
-Plugin.config = function()
-  require('mini.ai').setup({})
-end
+local Plugin = {
+  "echasnovski/mini.ai",
+  config = true,
+}
 
 return Plugin

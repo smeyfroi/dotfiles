@@ -1,11 +1,12 @@
-local Plugin = {'akinsho/toggleterm.nvim'}
-
-Plugin.opts = {
-  open_mapping = [[<c-\>]],
-  insert_mappings = true, -- whether or not the open mapping applies in insert mode
-  terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-  direction = 'float',
-  close_on_exit = true, -- close the terminal window when the process exits
+local Plugin = {
+  "akinsho/toggleterm.nvim",
+  opts = {
+    open_mapping = [[<c-\>]],
+    insert_mappings = true, -- whether or not the open mapping applies in insert mode
+    terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
+    direction = 'float',
+    close_on_exit = true, -- close the terminal window when the process exits
+  }
 }
 
 return Plugin

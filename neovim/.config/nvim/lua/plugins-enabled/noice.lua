@@ -1,9 +1,11 @@
-local Plugin = {'folke/noice.nvim'}
+-- NOTE: there is noice config to show @recording messages in the lualine setup
 
-Plugin.dependencies = {
-  {"MunifTanjim/nui.nvim", "rcarriga/nvim-notify"},
+local Plugin = {
+  "folke/noice.nvim",
+  dependencies = {
+    {"MunifTanjim/nui.nvim", "rcarriga/nvim-notify"},
+  },
+  config = true,
 }
-
-Plugin.config = true
 
 return Plugin

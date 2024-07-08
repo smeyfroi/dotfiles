@@ -1,5 +1,6 @@
-local Plugin = {'lfv89/vim-interestingwords'}
-
-Plugin.name = 'interestingwords'
+local Plugin = {
+  "lfv89/vim-interestingwords",
+  name = "interestingwords",
+}
 
 return Plugin
