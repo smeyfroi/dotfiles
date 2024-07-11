@@ -6,11 +6,10 @@ Plugin.config = function()
     lua = { "selene" },
     markdown = { "markdownlint" },
     ruby = { "rubocop" },
-    javascript = { "prettier" },
-    python = { "pylint" },
+    javascript = { "eslint" },
     yaml = { "yamllint" },
     json = { "jsonlint" },
-    cfn = { "cfn-lint" },
+    -- cfn = { "cfn-lint" },
   }
 
   vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {

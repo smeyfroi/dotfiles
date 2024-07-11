@@ -10,6 +10,7 @@ Plugin.config = function()
       "bashls",
       -- "cfn-lint",
       -- "dockerls",
+      "eslint",
       "jsonls",
       -- "lua_ls",
       -- "markdownlint",
