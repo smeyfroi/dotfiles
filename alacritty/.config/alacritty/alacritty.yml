@@ -149,7 +149,7 @@ font:
     #style: Bold
 
   # Italic font face
-  #italic:
+  italic:
     # Font family
     #
     # If the italic family is not specified, it will fall back to the
@@ -157,7 +157,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    #style: Italic
+    style: Italic
 
   # Bold italic font face
   #bold_italic:
@@ -864,9 +864,9 @@ key_bindings:
   #- { key: K,              mods: Command, mode: ~Vi|~Search, action: ClearHistory          }
   #- { key: Key0,           mods: Command,                    action: ResetFontSize         }
   #- { key: Equals,         mods: Command,                    action: IncreaseFontSize      }
-  #- { key: Plus,           mods: Command,                    action: IncreaseFontSize      }
+  - { key: Plus,           mods: Command,                    action: IncreaseFontSize      }
   #- { key: NumpadAdd,      mods: Command,                    action: IncreaseFontSize      }
-  #- { key: Minus,          mods: Command,                    action: DecreaseFontSize      }
+  - { key: Minus,          mods: Command,                    action: DecreaseFontSize      }
   #- { key: NumpadSubtract, mods: Command,                    action: DecreaseFontSize      }
   #- { key: V,              mods: Command,                    action: Paste                 }
   #- { key: C,              mods: Command,                    action: Copy                  }

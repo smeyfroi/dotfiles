@@ -1,3 +1,3 @@
-local Plugin = { "nvim-treesitter/nvim-treesitter-context" }
-
-return Plugin
+return {
+  "nvim-treesitter/nvim-treesitter-context"
+}

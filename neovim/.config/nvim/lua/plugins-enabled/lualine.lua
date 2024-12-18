@@ -4,7 +4,14 @@ local Plugin = {
     "nvim-tree/nvim-web-devicons",
   },
   opts = {
+    options = {
+      theme = "auto",
+      globalstatus = vim.o.laststatus == 3,
+      disabled_filetypes = { statusline = { "snacks_dashboard" } },
+    },
     sections = {
+      lualine_a = { "mode" },
+      lualine_b = { "branch" },
       lualine_x = {
         {
           require("noice").api.statusline.mode.get,
@@ -14,6 +21,7 @@ local Plugin = {
       },
     },
   },
+  extensions = { "neo-tree", "lazy" },
 }
 
 return Plugin

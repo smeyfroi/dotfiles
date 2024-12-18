@@ -1,4 +1,4 @@
-local Plugin = {
+return {
   "calind/selenized.nvim",
   name = 'selenized',
   lazy = false,
@@ -7,5 +7,3 @@ local Plugin = {
     vim.cmd.colorscheme "selenized"
   end,
 }
-
-return Plugin

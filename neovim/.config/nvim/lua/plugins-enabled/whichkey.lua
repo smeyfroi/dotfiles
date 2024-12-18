@@ -1,6 +1,5 @@
-local Plugin = {
+return {
   "folke/which-key.nvim",
+  name = "which-key",
   config = true,
 }
-
-return Plugin

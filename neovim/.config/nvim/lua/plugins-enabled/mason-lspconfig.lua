@@ -8,17 +8,12 @@ Plugin.config = function()
   require("mason-lspconfig").setup({
     ensure_installed = {
       "bashls",
-      -- "cfn-lint",
-      -- "dockerls",
       "eslint",
       "jsonls",
-      -- "lua_ls",
-      -- "markdownlint",
-      -- "prettier",
-      -- "pylint",
+      "lua_ls",
       "rubocop",
-      "tsserver",
-      "yamlls",
+      "ts_ls",
+      "ruby_lsp",
     },
   })
 end
