@@ -3,16 +3,19 @@ local Plugin = { "neovim/nvim-lspconfig" }
 Plugin.dependencies = {
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
+  { "saghen/blink.cmp" },
 }
 
 Plugin.config = function()
   local lspconfig = require("lspconfig")
-  lspconfig.bashls.setup({})
-  lspconfig.jsonls.setup({})
-  lspconfig.lua_ls.setup({})
-  lspconfig.ruby_lsp.setup({})
-  lspconfig.ts_ls.setup({})
+  local capabilities = require('blink.cmp').get_lsp_capabilities()
+  lspconfig.bashls.setup({ capabilities = capabilities })
+  lspconfig.jsonls.setup({ capabilities = capabilities })
+  lspconfig.lua_ls.setup({ capabilities = capabilities })
+  lspconfig.ruby_lsp.setup({ capabilities = capabilities })
+  lspconfig.ts_ls.setup({ capabilities = capabilities })
   lspconfig.yamlls.setup({
+    capabilities = capabilities,
     settings = {
       yaml = {
         format = {
