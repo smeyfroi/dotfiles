@@ -1,6 +1,4 @@
-local Plugin = {
+return {
   "echasnovski/mini.ai",
   config = true,
 }
-
-return Plugin

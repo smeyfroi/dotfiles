@@ -25,7 +25,7 @@ function Plugin.init()
   bind('n', '<C-space>', ':Telescope find_files<CR>')
 
   -- Search symbols in buffer
-  -- bind('n', '<Leader>fs', ':Telescope treesitter<CR>')
+  bind('n', '<Leader>fs', ':Telescope treesitter<CR>')
 
   -- Search buffer lines
   bind('n', '<Leader>fb', ':Telescope current_buffer_fuzzy_find<CR>')

@@ -4,12 +4,15 @@ return {
   opts = {
     modes = {
       char = {
-        enabled = false,
+        enabled = true,
         jump_labels = true,
       },
       search = {
-        enabled = true,
+        enabled = false,
       },
     },
+  },
+  keys = {
+    { "<CR>", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
   },
 }

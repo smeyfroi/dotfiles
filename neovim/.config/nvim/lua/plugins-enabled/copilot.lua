@@ -1,16 +1,3 @@
--- return {
---   'github/copilot.vim',
---   name = 'copilot',
---   init = function()
---     -- vim.keymap.set("M-]", "<Plug>(copilot-next)", { desc = "Next Copilot suggestion" })
---     -- M-[ previous
---     -- M-\ ask for suggestion
---     -- M-Right
---     vim.keymap.set("i", "M-z", "<Plug>(copilot-accept-word)", { noremap = false, desc = "Accept next word of current suggestion" })
---     -- vim.keymap.set("M-<", "<Plug>(copilot-accept-line)", { desc = "Accept next line of current suggestion" })
---   end,
--- }
-
 return {
   "zbirenbaum/copilot.lua",
   cmd = "Copilot",

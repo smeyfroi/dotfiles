@@ -1,6 +1,6 @@
 -- NOTE: there is noice config to show @recording messages in the lualine setup
 
-local Plugin = {
+return {
   "folke/noice.nvim",
   dependencies = {
     {"MunifTanjim/nui.nvim", "rcarriga/nvim-notify"},
@@ -20,5 +20,3 @@ local Plugin = {
     require("noice").setup(opts)
   end,
 }
-
-return Plugin
