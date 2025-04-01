@@ -25,19 +25,19 @@ return {
     -- Add or skip adding a new cursor by matching word/selection
     set({ "n", "v" }, "<leader>n", function()
       mc.matchAddCursor(1)
-    end)
+    end, { desc = "Add cursor" })
     set({ "n", "v" }, "<leader>s", function()
       mc.matchSkipCursor(1)
-    end)
+    end, { desc = "Skip cursor" })
     set({ "n", "v" }, "<leader>N", function()
       mc.matchAddCursor(-1)
-    end)
+    end, { desc = "Add cursor backwards" })
     set({ "n", "v" }, "<leader>S", function()
       mc.matchSkipCursor(-1)
-    end)
+    end, { desc = "Skip cursor backwards" })
 
     -- Add all matches in the document
-    set({ "n", "v" }, "<leader>A", mc.matchAllAddCursors)
+    set({ "n", "v" }, "<leader>A", mc.matchAllAddCursors, { desc = "Add all matching cursors" })
 
     -- You can also add cursors with any motion you prefer:
     -- set("n", "<right>", function()
@@ -52,7 +52,7 @@ return {
     set({ "n", "v" }, "<right>", mc.prevCursor)
 
     -- Delete the main cursor.
-    set({ "n", "v" }, "<leader>x", mc.deleteCursor)
+    set({ "n", "v" }, "<leader>x", mc.deleteCursor, { desc = "Delete cursor" })
 
     -- Add and remove cursors with control + left click.
     set("n", "<c-leftmouse>", mc.handleMouse)

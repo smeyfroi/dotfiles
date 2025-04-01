@@ -69,20 +69,29 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
+-- opt.winborder = 'rounded'
 
-if vim.fn.has("nvim-0.10") == 1 then
-  opt.smoothscroll = true
-  -- opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
-  opt.foldmethod = "expr"
-  opt.foldtext = ""
-else
-  opt.foldmethod = "indent"
-  -- opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
-end
+opt.smoothscroll = true
+-- opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+opt.foldmethod = "expr"
+opt.foldtext = ""
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 
+vim.diagnostic.config({
+  virtual_lines = true
+  -- virtual_text = { current_line = true }
+})
 
+-- From https://gpanders.com/blog/whats-new-in-neovim-0-11/#builtin-auto-completion
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--   callback = function(ev)
+--     local client = vim.lsp.get_client_by_id(ev.data.client_id)
+--     if client:supports_method('textDocument/completion') then
+--       vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+--     end
+--   end,
+-- })
 
 opt.guifont = "Iosevka Nerd Font Mono:h14"
