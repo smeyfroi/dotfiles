@@ -80,7 +80,8 @@ opt.foldtext = ""
 vim.g.markdown_recommended_style = 0
 
 vim.diagnostic.config({
-  virtual_lines = true
+  -- virtual_lines = true
+  virtual_lines = { current_line = true },
   -- virtual_text = { current_line = true }
 })
 
