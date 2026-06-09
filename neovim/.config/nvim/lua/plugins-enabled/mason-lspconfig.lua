@@ -8,9 +8,7 @@ Plugin.config = function()
   require("mason-lspconfig").setup({
     ensure_installed = {
       "bashls",
-      "jsonls",
       "lua_ls",
-      "rubocop",
       "ts_ls",
       "ruby_lsp",
     },

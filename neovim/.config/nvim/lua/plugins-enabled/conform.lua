@@ -1,5 +1,6 @@
 return {
   "stevearc/conform.nvim",
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "williamboman/mason.nvim",
     "zapling/mason-conform.nvim",
@@ -12,9 +13,9 @@ return {
       lua = { "stylua" },
       javascript = { "prettier" },
       typescript = { "prettier" },
-      json = { "jq" },
+      json = { "prettier" },
+      yaml = { "prettier" },
       ruby = { "rubocop" },
-      yaml = { "yamlfmt" },
       sh = { "shfmt" },
     },
     formatters = {
