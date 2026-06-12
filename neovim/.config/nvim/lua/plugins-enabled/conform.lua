@@ -1,32 +1,30 @@
 return {
-  "stevearc/conform.nvim",
-  event = { "BufReadPre", "BufNewFile" },
-  dependencies = {
-    "williamboman/mason.nvim",
-    "zapling/mason-conform.nvim",
-  },
-  lazy = true,
-  opts = {
-    formatters_by_ft = {
-      -- Conform will run multiple formatters sequentially
-      -- Use a sub-list to run only the first available formatter
-      lua = { "stylua" },
-      javascript = { "prettier" },
-      typescript = { "prettier" },
-      json = { "prettier" },
-      yaml = { "prettier" },
-      ruby = { "rubocop" },
-      sh = { "shfmt" },
-    },
-    formatters = {
-      injected = {
-        shfmt = {
-          prepend_args = { "-i", "2", "-ci" },
+  specs = function(ctx)
+    return {
+      { src = ctx.gh("stevearc/conform.nvim") },
+    }
+  end,
+
+  config = function()
+    require("conform").setup({
+      formatters_by_ft = {
+        lua = { "stylua" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        json = { "prettier" },
+        yaml = { "prettier" },
+        ruby = { "rubocop" },
+        sh = { "shfmt" },
+      },
+      formatters = {
+        injected = {
+          shfmt = {
+            prepend_args = { "-i", "2", "-ci" },
+          },
         },
       },
-    },
-  },
-  init = function()
+    })
+
     vim.api.nvim_create_user_command("Format", function(args)
       local range = nil
       if args.count ~= -1 then
@@ -36,21 +34,13 @@ return {
           ["end"] = { args.line2, end_line:len() },
         }
       end
+
       require("conform").format({
         async = true,
-        lsp_fallback = true,
+        lsp_format = "fallback",
         range = range,
         timeout_ms = 3000,
       })
-    end, { range = true })
-
-    -- Optionally set up format-on-save
-    -- require("conform").setup({
-    --   format_on_save = {
-    --     -- These options will be passed to conform.format()
-    --     timeout_ms = 500,
-    --     lsp_format = "fallback",
-    --   },
-    -- })
+    end, { range = true, desc = "Format buffer or range" })
   end,
 }

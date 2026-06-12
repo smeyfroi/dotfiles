@@ -1,4 +1,11 @@
 return {
-  'echasnovski/mini.surround',
-  config = true,
+  specs = function(ctx)
+    return {
+      { src = ctx.gh("echasnovski/mini.surround") },
+    }
+  end,
+
+  config = function(ctx)
+    ctx.setup("mini.surround")
+  end,
 }

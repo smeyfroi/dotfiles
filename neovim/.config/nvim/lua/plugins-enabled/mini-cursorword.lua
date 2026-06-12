@@ -1,7 +1,11 @@
-local Plugin = {'echasnovski/mini.cursorword'}
+return {
+  specs = function(ctx)
+    return {
+      { src = ctx.gh("echasnovski/mini.cursorword") },
+    }
+  end,
 
-Plugin.config = function()
-  require('mini.cursorword').setup({})
-end
-
-return Plugin
+  config = function(ctx)
+    ctx.setup("mini.cursorword")
+  end,
+}

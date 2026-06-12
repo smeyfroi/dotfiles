@@ -1,9 +1,11 @@
 return {
-  "calind/selenized.nvim",
-  name = 'selenized',
-  lazy = false,
-  priority = 1000, -- load before any plugin that might set colours
+  specs = function(ctx)
+    return {
+      { src = ctx.gh("calind/selenized.nvim"), name = "selenized" },
+    }
+  end,
+
   config = function()
-    vim.cmd.colorscheme "selenized"
+    vim.cmd.colorscheme("selenized")
   end,
 }

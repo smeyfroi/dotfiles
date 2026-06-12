@@ -1,7 +1,7 @@
 return {
   specs = function(ctx)
     return {
-      { src = ctx.gh("nvim-tree/nvim-web-devicons") },
+      { src = ctx.gh("nvim-lua/plenary.nvim") },
     }
   end,
 }

@@ -1,12 +1,17 @@
-local Plugin = {
-  "akinsho/toggleterm.nvim",
-  opts = {
-    open_mapping = [[<c-\>]],
-    insert_mappings = true, -- whether or not the open mapping applies in insert mode
-    terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-    direction = 'float',
-    close_on_exit = true, -- close the terminal window when the process exits
-  }
-}
+return {
+  specs = function(ctx)
+    return {
+      { src = ctx.gh("akinsho/toggleterm.nvim") },
+    }
+  end,
 
-return Plugin
+  config = function(ctx)
+    ctx.setup("toggleterm", {
+      open_mapping = [[<c-\>]],
+      insert_mappings = true,
+      terminal_mappings = true,
+      direction = "float",
+      close_on_exit = true,
+    })
+  end,
+}
