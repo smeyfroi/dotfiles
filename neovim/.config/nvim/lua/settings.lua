@@ -72,9 +72,11 @@ opt.wrap = false -- Disable line wrap
 -- opt.winborder = 'rounded'
 
 opt.smoothscroll = true
--- opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
-opt.foldmethod = "expr"
-opt.foldtext = ""
+opt.foldmethod = "expr" -- decide folds from an expression...
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- ...namely treesitter's structural folds
+opt.foldtext = "" -- show the fold's first line verbatim (with its normal highlights)
+opt.foldlevelstart = 99 -- open every buffer fully unfolded; you fold on demand
+opt.foldcolumn = "1" -- gutter showing fold markers (your fillchars glyphs); click to toggle
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
