@@ -18,7 +18,7 @@ Configured Mason packages:
 
 - LSP: `bash-language-server`, `vscode-json-language-server`, `lua-language-server`, `ruby-lsp`, `typescript-language-server`, `yaml-language-server`
 - Formatters: `stylua`, `prettier`, `rubocop`, `shfmt`
-- Linters: `selene`, `eslint_d`, `yamllint`, `jsonlint`, `cfn-lint`
+- Linters: `selene`, `eslint_d`, `yamllint`, `jsonlint`, `rubocop`
 
 The Mason package names are slightly different where upstream tools use different executable names: `json-lsp` provides `vscode-json-language-server`.
 

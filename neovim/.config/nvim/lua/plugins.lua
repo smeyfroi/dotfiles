@@ -32,7 +32,6 @@ local plugin_modules = {
   "plugins-enabled.interestingwords",
   "plugins-enabled.rainbowcsv",
   "plugins-enabled.switch",
-  "plugins-enabled.buffers",
 }
 
 local function gh(repo)

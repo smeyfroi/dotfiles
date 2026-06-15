@@ -56,14 +56,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     map("n", "gd", vim.lsp.buf.definition, "Go to definition")
     map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
-    map("n", "gr", vim.lsp.buf.references, "References")
-    map("n", "gI", vim.lsp.buf.implementation, "Go to implementation")
     map("n", "K", vim.lsp.buf.hover, "Hover")
-    map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
-    map("n", "<leader>cr", vim.lsp.buf.rename, "Rename")
-    map("n", "<leader>cd", vim.diagnostic.open_float, "Line diagnostics")
-    map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
-    map("n", "[d", vim.diagnostic.goto_prev, "Previous diagnostic")
     map("n", "<leader>xq", vim.diagnostic.setqflist, "Diagnostics quickfix")
     map("n", "<leader>xl", vim.diagnostic.setloclist, "Diagnostics loclist")
   end,
@@ -97,27 +90,6 @@ vim.lsp.config("yamlls", {
       },
       hover = true,
       completion = true,
-      customTags = {
-        "!Fn",
-        "!And",
-        "!If",
-        "!Not",
-        "!Equals",
-        "!Or",
-        "!FindInMap Sequence",
-        "!Base64",
-        "!Cidr",
-        "!Ref",
-        "!Ref Scalar",
-        "!Sub",
-        "!Sub Sequence",
-        "!GetAtt",
-        "!GetAZs",
-        "!ImportValue",
-        "!Select",
-        "!Split",
-        "!Join Sequence",
-      },
     },
   },
 })

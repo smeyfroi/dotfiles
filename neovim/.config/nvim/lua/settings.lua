@@ -80,9 +80,17 @@ opt.foldtext = ""
 vim.g.markdown_recommended_style = 0
 
 vim.diagnostic.config({
-  -- virtual_lines = true
-  virtual_lines = { current_line = true },
-  -- virtual_text = { current_line = true }
+  float = {
+    border = "rounded",
+    source = "if_many",
+  },
+  virtual_lines = false,
+  virtual_text = {
+    current_line = true,
+    source = "if_many",
+    spacing = 2,
+    virt_text_pos = "eol_right_align",
+  },
 })
 
 -- From https://gpanders.com/blog/whats-new-in-neovim-0-11/#builtin-auto-completion

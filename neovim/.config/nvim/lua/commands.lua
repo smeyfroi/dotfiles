@@ -1,17 +1,15 @@
 local command = vim.api.nvim_create_user_command
 local autocmd = vim.api.nvim_create_autocmd
 
-autocmd('TermOpen', {
-  pattern = '*',
-  command = 'setlocal nonumber norelativenumber'
+autocmd("TermOpen", {
+  pattern = "*",
+  command = "setlocal nonumber norelativenumber",
 })
 
-vim.cmd([[autocmd BufNewFile,BufRead *.template :setlocal filetype=yaml]])
--- vim.cmd([[autocmd BufNewFile,BufRead *.template :setlocal filetype=cfn]])
--- autocmd('BufNewFile,BufRead', {
---   pattern = '*.template',
---   command = 'setlocal filetype=yaml'
--- })
+autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.template",
+  command = "setlocal filetype=yaml",
+})
 
 command(
   'StripTrailingWhitespace',
@@ -22,7 +20,7 @@ command(
     vim.cmd([[keeppatterns %s/\s\+$//e]])
     vim.api.nvim_win_set_cursor(0, curpos)
   end,
-  {desc = 'Strip trailing whitespace'}
+  { desc = "Strip trailing whitespace" }
 )
 
 -- Highlight on yank
@@ -36,4 +34,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank()
   end,
 })
-

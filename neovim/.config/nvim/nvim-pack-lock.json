@@ -65,10 +65,6 @@
       "rev": "ed19590a3a9792901553c388d1aadafce012f80d",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
-    "nvim-neoclip.lua": {
-      "rev": "831a97c7697736411a05ff8b91e8798ea4c2d6fb",
-      "src": "https://github.com/AckslD/nvim-neoclip.lua"
-    },
     "nvim-tree.lua": {
       "rev": "82f58063d67defc620e1ef8be606fc62a7b5dc1e",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"

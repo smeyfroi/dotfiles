@@ -10,17 +10,19 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         javascript = { "prettier" },
+        javascriptreact = { "prettier" },
         typescript = { "prettier" },
+        typescriptreact = { "prettier" },
         json = { "prettier" },
+        jsonc = { "prettier" },
+        markdown = { "prettier" },
         yaml = { "prettier" },
         ruby = { "rubocop" },
         sh = { "shfmt" },
       },
       formatters = {
-        injected = {
-          shfmt = {
-            prepend_args = { "-i", "2", "-ci" },
-          },
+        shfmt = {
+          prepend_args = { "-i", "2", "-ci" },
         },
       },
     })

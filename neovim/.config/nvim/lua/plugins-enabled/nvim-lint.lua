@@ -11,10 +11,12 @@ return {
     lint.linters_by_ft = {
       lua = { "selene" },
       javascript = { "eslint_d" },
+      javascriptreact = { "eslint_d" },
       typescript = { "eslint_d" },
+      typescriptreact = { "eslint_d" },
       yaml = { "yamllint" },
       json = { "jsonlint" },
-      cfn = { "cfn-lint" },
+      ruby = { "rubocop" },
     }
 
     for ft, names in pairs(lint.linters_by_ft) do
