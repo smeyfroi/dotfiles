@@ -18,6 +18,7 @@ return {
     wk.add({
       { "<leader>b", group = "buffers" },
       { "<leader>f", group = "find" },
+      { "<leader>r", group = "replace" },
       { "<leader>w", group = "which-key" },
     })
 
