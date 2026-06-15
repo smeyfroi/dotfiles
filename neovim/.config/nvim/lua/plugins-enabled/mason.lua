@@ -13,6 +13,7 @@ local mason_packages = {
   "eslint_d",
   "yamllint",
   "jsonlint",
+  "cfn-lint",
 }
 
 local function mason_install_configured()

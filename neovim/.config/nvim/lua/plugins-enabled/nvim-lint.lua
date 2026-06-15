@@ -17,6 +17,7 @@ return {
       yaml = { "yamllint" },
       json = { "jsonlint" },
       ruby = { "rubocop" },
+      cloudformation = { "cfn_lint" },
     }
 
     for ft, names in pairs(lint.linters_by_ft) do

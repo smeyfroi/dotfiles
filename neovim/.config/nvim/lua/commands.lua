@@ -8,7 +8,7 @@ autocmd("TermOpen", {
 
 autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "*.template",
-  command = "setlocal filetype=yaml",
+  command = "setlocal filetype=yaml.cloudformation",
 })
 
 command(
