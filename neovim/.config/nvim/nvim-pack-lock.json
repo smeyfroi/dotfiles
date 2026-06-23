@@ -52,6 +52,10 @@
       "rev": "146aef247d9bfc58bab20dd921ba6b75ac4b8cf9",
       "src": "https://github.com/echasnovski/mini.splitjoin"
     },
+    "mini.starter": {
+      "rev": "0575c96206d63fd98d7f786df78dc225bf847d95",
+      "src": "https://github.com/echasnovski/mini.starter"
+    },
     "mini.surround": {
       "rev": "9fd5ebef2b34cc4ac3c0f1811a6726ea6d92fa91",
       "src": "https://github.com/echasnovski/mini.surround"

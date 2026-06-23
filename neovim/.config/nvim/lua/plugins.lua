@@ -33,6 +33,7 @@ local plugin_modules = {
   "plugins-enabled.rainbowcsv",
   "plugins-enabled.switch",
   "plugins-enabled.grug-far",
+  "plugins-enabled.mini-starter",
 }
 
 local function gh(repo)
