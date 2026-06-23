@@ -24,6 +24,16 @@ return {
         shfmt = {
           prepend_args = { "-i", "2", "-ci" },
         },
+        prettier = {
+          -- .template (CloudFormation) files have an extension prettier can't map
+          -- to a parser, so force yaml for them; other filetypes infer as usual.
+          prepend_args = function(_, ctx)
+            if vim.bo[ctx.buf].filetype:find("cloudformation") then
+              return { "--parser", "yaml" }
+            end
+            return {}
+          end,
+        },
       },
     })
 
