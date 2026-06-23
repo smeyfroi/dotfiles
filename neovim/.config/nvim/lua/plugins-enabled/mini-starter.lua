@@ -9,6 +9,7 @@ return {
     local starter = require("mini.starter")
 
     starter.setup({
+      header = "", -- no greeting/title line
       items = {
         starter.sections.recent_files(10, true, false), -- this repo (cwd)
         starter.sections.recent_files(10, false, true), -- recent everywhere, with path
