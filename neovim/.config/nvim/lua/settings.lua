@@ -76,7 +76,36 @@ opt.foldmethod = "expr" -- decide folds from an expression...
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- ...namely treesitter's structural folds
 opt.foldtext = "" -- show the fold's first line verbatim (with its normal highlights)
 opt.foldlevelstart = 99 -- open every buffer fully unfolded; you fold on demand
-opt.foldcolumn = "1" -- gutter showing fold markers (your fillchars glyphs); click to toggle
+opt.foldcolumn = "0" -- a custom statuscolumn (below) draws a single fold glyph instead
+
+-- Reuse the glyphs from 'fillchars' rather than embedding them here (private-use
+-- glyphs don't survive being typed inline, and this keeps the gutter consistent).
+local _fcs = vim.opt.fillchars:get()
+local FOLD_CLOSED = _fcs.foldclose or ">"
+local FOLD_OPEN = _fcs.foldopen or "v"
+
+-- Minimal native-fold UI: one gutter glyph, never any depth info.
+--   • a CLOSED fold always shows the closed glyph (content is hidden here)
+--   • an OPEN fold shows the open glyph only on the cursor line, an unobtrusive
+--     "you can fold here" hint that follows the cursor (relies on cursorline)
+-- To make it sparser, delete the open-fold block; to always show open folds,
+-- drop the `vim.v.relnum == 0` test.
+function _G.fold_marker()
+  local lnum = vim.v.lnum
+  if vim.v.virtnum ~= 0 then -- wrapped/virtual line
+    return " "
+  end
+  if vim.fn.foldclosed(lnum) == lnum then -- first line of a closed fold
+    return FOLD_CLOSED
+  end
+  if vim.v.relnum == 0 and vim.fn.foldlevel(lnum) > vim.fn.foldlevel(lnum - 1) then
+    return FOLD_OPEN -- a fold starts here and the cursor is on this line
+  end
+  return " "
+end
+
+-- statuscolumn replaces the whole gutter: signs (%s), line number (%l), fold glyph
+opt.statuscolumn = "%s%=%l %{v:lua.fold_marker()}"
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
