@@ -7,7 +7,7 @@ return {
 
   config = function(ctx)
     ctx.setup("toggleterm", {
-      open_mapping = [[<c-\>]],
+      open_mapping = [[<c-;>]],
       insert_mappings = true,
       terminal_mappings = true,
       direction = "float",
