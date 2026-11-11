@@ -29,5 +29,3 @@ System tools still needed outside Mason:
 On first launch, `vim.pack` installs plugins into Neovim's normal data directory and writes `nvim-pack-lock.json` here.
 
 Current `nvim-treesitter` does not use the old `require("nvim-treesitter.configs").setup(...)` API. Use `:TSInstallConfigured` to install the parser set from this config.
-
-Copilot stores auth under `$XDG_CONFIG_HOME/github-copilot`. Local auth files are ignored by Git.

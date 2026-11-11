@@ -16,8 +16,6 @@ local plugin_modules = {
   "plugins-enabled.gitsigns",
   "plugins-enabled.whichkey",
   "plugins-enabled.lazydev",
-  "plugins-enabled.copilot",
-  "plugins-enabled.copilot-chat",
   "plugins-enabled.nvim-tree",
   "plugins-enabled.toggleterm",
   "plugins-enabled.flash",
