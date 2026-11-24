@@ -1,5 +1,8 @@
+# Finder's .DS_Store files and Neovim logs are not config
+STOW = stow --verbose --target=$$HOME --ignore='\.DS_Store' --ignore='\.?nvim\.?log'
+
 all:
-	stow --verbose --target=$$HOME --restow */
+	$(STOW) --restow */
 
 delete:
-	stow --verbose --target=$$HOME --delete */
+	$(STOW) --delete */
